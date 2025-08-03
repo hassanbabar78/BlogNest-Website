@@ -23,8 +23,6 @@ class AuthServices{
             const createdAccount =  await this.account.create(ID.unique(), email, password, name);
             if(createdAccount){
                 console.log("The account has been created successfully...");
-                // I wanted that user must go towards the login upon creation of Account
-                // return this.login(email, password);
                 return createdAccount;
             }else{
                 return createdAccount;
@@ -50,7 +48,7 @@ class AuthServices{
         } catch (error) {
             throw error;
         }
-        return null; // Incase the user could not get
+        return null; 
     }
     async logout(){
         try {

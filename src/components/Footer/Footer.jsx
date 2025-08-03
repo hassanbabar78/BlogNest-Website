@@ -13,7 +13,7 @@ function Footer() {
 
       <div className="flex-grow" />
 
-      <ul className="flex w-[30%] justify-between text-sm text-white">
+      <ul className="flex w-[32%] justify-between text-m text-white">
         <li>
           <Link to="/privacy" className="hover:text-blue-100  duration-200">Privacy</Link>
         </li>

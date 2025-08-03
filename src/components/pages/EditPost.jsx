@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 import dataServices from '../../appWrite/Database';
-import PostForm from '../postForm/postForm';
+import PostForm from '../PostForm/PostForm';
 
 function EditPost() {
     const navigate = useNavigate();
