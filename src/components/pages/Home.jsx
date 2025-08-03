@@ -8,34 +8,45 @@ import dataServices from '../../appWrite/Database'
 function Home() {
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    let isLogged = useSelector((state) => (state.auth.status));
     let hasPost = false;
     const dispatch = useDispatch();
 
     useEffect(() => {
-        
-        authServices.getCurrentUser()
-        .then((currUser) =>{
-            if(currUser){
+    const fetchData = async () => {
+        try {
+            const currUser = await authServices.getCurrentUser();
+            if (currUser) {
                 dispatch(login(currUser));
                 setUser(currUser.$id);
-                dataServices.getAllPosts()
-                        .then((posts) => {
-                            if(posts){
-                                setPosts(posts.documents);
-                            }
-                        })
-            }else{
-                return null;
+                const response = await dataServices.getAllPosts();
+                if (response) {
+                    setPosts(response.documents);
+                }
             }
-        })
-    }, [])
+        } catch (error) {
+            console.error("Error loading data:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+    fetchData(); 
+}, [isLogged]);
 
+    if (loading) {
+        return (
+            <div className="w-full py-8 mt-4 text-center">
+                <h1 className="text-xl font-medium text-gray-900">The data is Loading...</h1>
+            </div>
+        );
+    }
     if(!user){
         return (
             <div className="w-full py-8 mt-4 text-center">
                 <div className="flex flex-wrap">
                     <div className="p-2 w-full">
-                        <h1 className="text-2xl font-bold hover:text-gray-500">
+                        <h1 className="text-2xl font-bold hover:text-gray-300">
                             Please login to read posts
                         </h1>
                     </div>

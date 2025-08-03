@@ -4,20 +4,18 @@ import Logo from "../Logo";
 
 function Footer() {
   return (
-    <footer className="h-[15vh] w-full shadow bg-gray-500 py-3 px-8 flex items-center">
-      {/* Left: Logo + Text */}
-      <div className="flex items-center space-x-3 text-black">
+    <footer className="h-[15vh] w-full shadow bg-gray-700 py-3 px-5 flex items-center">
+     
+      <div className="flex items-center space-x-3 text-white">
         <Logo width="45px" />
         <span className="text-sm">&copy; 2025 All rights reserved</span>
       </div>
 
-      {/* Spacer to push links toward center/right */}
       <div className="flex-grow" />
 
-      {/* Right: Footer Links evenly spread */}
-      <ul className="flex w-[30%] justify-between text-sm text-black">
+      <ul className="flex w-[30%] justify-between text-sm text-white">
         <li>
-          <Link to="/privacy" className="hover:text-blue-100 duration-200">Privacy</Link>
+          <Link to="/privacy" className="hover:text-blue-100  duration-200">Privacy</Link>
         </li>
         <li>
           <Link to="/terms" className="hover:text-blue-100 duration-200">Terms</Link>

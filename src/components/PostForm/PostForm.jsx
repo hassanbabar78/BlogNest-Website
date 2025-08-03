@@ -25,9 +25,7 @@ function PostForm({post}) {
      try {
         dataServices.getFilePreview(post.featuredImage)
         .then((url) => {
-            console.log("Preview object:", url); // Debug the preview object
             setImageUrl(url);
-            console.log("Image URL set:", url); // Confirm the URL
         })
         
     } catch (err) {
@@ -48,32 +46,12 @@ function PostForm({post}) {
             })
 
             if(updatePost){
+                alert("The post has been updated successfully!!!");
                 navigate(`/post/${updatePost.$id}`);
             }
         }else{
-            // try{
-            //     const file = await dataServices.uploadFile(data.image[0])
-            //     if(file){
-            //         const createPost = await dataServices.createPost({
-            //         ... data,
-            //         userId: userData.$id,
-            //         featuredImage: file.$id,
-            //         })
-            //         if(createPost){
-            //             navigate( `/post/${createPost.$id}`);
-            //         }
-            //     }
-                
-            // }catch(error){
-            //     console.error("Error during post creation:", error);
-            //     alert("An error occurred while creating the post. Check console.");
-            // }
             try {
-                console.log("Image file received:", data.image[0]);
-
                 const file = await dataServices.uploadFile(data.image[0]);
-                console.log("Appwrite response after upload:", file);
-                
                 if (file && file.$id) {
                     const createPost = await dataServices.createPost({
                         ...data,
@@ -82,14 +60,15 @@ function PostForm({post}) {
                     });
 
                     if (createPost) {
+                         alert("The post has been created successfully!!!");
                         navigate(`/post/${createPost.$id}`);
                     }
                 } else {
                     alert("Image upload failed. Check console for details.");
                 }
             } catch (error) {
-                console.error("Error during post creation:", error);
-                alert("An error occurred. See console.");
+                alert("An error occurred");
+                throw error;
             }
         }
     };
