@@ -5,6 +5,7 @@ import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 import dataServices from "../../appWrite/Database";
 import Button from "../Button";
+import Loader from "../Loader";
 
 function CurrentPost() {
     const [post, setPost] = useState(null);
@@ -53,15 +54,15 @@ function CurrentPost() {
     };
     if(loading){
         return (
-            <div className="w-full py-8 mt-4 text-center">
-                <h1 className="text-xl font-medium text-gray-900">The post is Loading...</h1>
+            <div class=" w-full h-[75vh] flex justify-center items-center hover:cursor-pointer">
+                <Loader/>
             </div>
         );
     }
 
     return post ? (
-        <div className="py-8"> 
-            <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
+        <div className="px-7 py-7"> 
+            <div className="w-full flex justify-center relative rounded-xl p-2">
                 {post.featuredImage && (
                     <img
                     src={imageUrl}
@@ -70,7 +71,7 @@ function CurrentPost() {
                     />              
                 )}
                 {isAuthor && (
-                    <div className="absolute right-6 top-6">
+                    <div className="absolute right-7 top-7">
                         <Link to={`/edit-post/${post.$id}`}>
                             <Button bgColor="bg-green-600 hover:bg-green-700" className="mr-3 transform transition-transform duration-200 hover:scale-110">
                                 Edit
@@ -82,12 +83,13 @@ function CurrentPost() {
                     </div>
                 )}
             </div>
-            <div className="w-full mb-6">
-                <h1 className="text-2xl font-bold">{post.title}</h1>
+            <div className="w-full h-[12vh] flex justify-center items-center text-white leading-tight ">
+                <h1 className="text-3xl font-medium">{post.title}</h1>
             </div>
-            <div className="prose prose-lg max-w-none bg-white dark:bg-gray-300 text-gray-800 dark:text-gray-100 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-2xl">
+            <div className="prose prose-lg max-w-none bg-white dark:bg-gray-300 text-gray-800 dark:text-gray-100 p-6 rounded-2xl shadow-lg transition-all duration-300 hover:shadow-2xl hover:cursor-pointer">
                     {parse(post.content)}
             </div>
+            
 
             
         </div>

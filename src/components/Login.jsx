@@ -19,7 +19,7 @@ function Login() {
         try {
             const session = await authServices.login(data);
             if (session) {
-                alert("User logged in Succeccfull");
+                alert("User logged in Succeccfully!!!");
                 const userData = await authServices.getCurrentUser();
                 if(userData){
                     dispatch(AuthLogin(userData))

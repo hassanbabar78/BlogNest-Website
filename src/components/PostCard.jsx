@@ -18,13 +18,13 @@ function PostCard({$id, title, featuredImage}) {
     
   return (
     <Link to={`/post/${$id}`}>
-        <div className='w-full bg-gray-100 rounded-xl p-4'>
-            <div className='w-full justify-center mb-4'> 
+        <div className='w-full h-full bg-[#D4D4D4] rounded-xl text-black px-3 py-3'>
+            <div className='w-full h-[87%]'> 
                 <img src={imageUrl} alt={"title"}
-                className=' rounded-xl' />
+                className='w-full h-full rounded-xl object-cover' />
             </div>
             <h2
-            className='text-xl font-bold'
+            className='h-[13%] flex items-center text-xl font-normal'
             >{title}</h2>
         </div>
     </Link>

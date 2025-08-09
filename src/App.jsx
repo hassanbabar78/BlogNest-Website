@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux'
 import './App.css'
 import authServices from './appWrite/Auth'
 import {login as AuthLogin, logout as AuthLogout} from "./store/authSlice"
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
-import { Outlet } from 'react-router-dom'
+
+import Layout from './components/Layout'
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -24,14 +23,8 @@ function App() {
   }, [])
   
   return (
-    <div className='min-h-screen flex flex-wrap content-between bg-neutral-500'>
-      <div className='w-full block'>
-        <Header />
-        <main>
-        <Outlet />
-        </main>
-        <Footer />
-      </div>
+    <div className='w-screen h-auto bg-[#121028]'> 
+       <Layout/>
     </div>
   ) 
 }

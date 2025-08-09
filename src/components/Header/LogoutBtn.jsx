@@ -14,7 +14,7 @@ function Logoutbtn(){
             navigate("/");
         }, 0); 
         response.then(()=>{
-        dispatch(logout());
+          dispatch(logout());
         })
     }
     return (

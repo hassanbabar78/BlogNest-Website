@@ -1,9 +1,12 @@
+
+
 import React, {useEffect, useState} from 'react'
 import authServices from '../../appWrite/Auth'
 import { useDispatch, useSelector } from 'react-redux'
 import PostCard from '../PostCard'
 import { login } from '../../store/authSlice'
 import dataServices from '../../appWrite/Database'
+import Loader from '../Loader'
 
 function Home() {
     const [posts, setPosts] = useState([]);
@@ -11,20 +14,21 @@ function Home() {
     const [loading, setLoading] = useState(true);
     let isLogged = useSelector((state) => (state.auth.status));
     let hasPost = false;
-    const dispatch = useDispatch();
 
     useEffect(() => {
     const fetchData = async () => {
         try {
-            const currUser = await authServices.getCurrentUser();
-            if (currUser) {
-                dispatch(login(currUser));
-                setUser(currUser.$id);
-                const response = await dataServices.getAllPosts();
-                if (response) {
-                    setPosts(response.documents);
+                if(isLogged){
+                    const currUser = await authServices.getCurrentUser();
+                    setUser(currUser.$id);
+                    const response = await dataServices.getAllPosts();
+                    if (response) {
+                        setPosts(response.documents);
+                    }
+                }else{
+                    setUser(null);
+                    setPosts([]);
                 }
-            }
         } catch (error) {
             console.error("Error loading data:", error);
         } finally {
@@ -36,21 +40,16 @@ function Home() {
 
     if (loading) {
         return (
-            <div className="w-full py-8 mt-4 text-center">
-                <h1 className="text-xl font-medium text-gray-900">The data is Loading...</h1>
+            <div class=" w-full h-[75vh] flex justify-center items-center hover:cursor-pointer">
+                  <Loader/>
             </div>
         );
     }
     if(!user){
         return (
-            <div className="w-full py-8 mt-4 text-center">
-                <div className="flex flex-wrap">
-                    <div className="p-2 w-full">
-                        <h1 className="text-2xl font-bold hover:text-gray-300">
-                            Please login to read posts
-                        </h1>
-                    </div>
-                </div>
+                
+            <div class=" w-full h-[75vh] flex justify-center items-center text-2xl text-red-700 font-medium animate-pulse hover:cursor-pointer">
+                  🚫 You are not logged in. Please log in to see posts.
             </div>
         )
     }
@@ -60,27 +59,19 @@ function Home() {
   
     if (user && !hasPost) {
         return (
-            <div className="w-full py-8 mt-4 text-center">
-                <div className="flex flex-wrap">
-                    <div className="p-2 w-full">
-                        <h1 className="text-2xl font-bold hover:text-gray-500">
-                             There are no posts at the moment 
-                        </h1>
-                    </div>
-                </div>
+            <div class=" w-full h-[75vh] flex justify-center items-center text-2xl text-violet-50 font-medium animate-pulse hover:cursor-pointer">
+                  There are no posts at the moment
             </div>
         )
     }
     return (
-        <div className='w-full py-8'>
-            <div className='flex flex-wrap'>
-                {posts.map((post) => (
-                    post.userId === user ?( 
-                    <div key={post.$id} className='p-2 w-1/4'>
-                        <PostCard {...post} />
-                    </div>): null
-                ))}
-            </div>
+        <div className=' w-screen h-auto flex flex-wrap gap-x-5 gap-y-5 px-7 py-7'>
+            {posts.map((post) => (
+                post.userId === user ?( 
+                 <div key={post.$id} className='w-[32%] h-[45vh]'>
+                    <PostCard {...post} />
+                </div>): null
+            ))}
         </div>
     )
 }

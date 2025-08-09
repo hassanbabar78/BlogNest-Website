@@ -94,8 +94,8 @@ function PostForm({post}) {
 
 
   return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-3/5 mx-auto ">
+        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap m-7">
+            <div className="w-3/5 mx-auto text-white">
                 <Input
                     label="Title :"
                     placeholder="Title"
@@ -113,7 +113,7 @@ function PostForm({post}) {
                 />
                 <RealTimeEditor label="Content :" name="content" control={control} defaultValue={getValues("content")} />
             </div>
-            <div className="w-1/3 px-2">
+            <div className="w-1/3 px-2 text-white">
                 <Input
                     label="Featured Image: "
                     type="file"
